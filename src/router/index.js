@@ -8,22 +8,22 @@ const router = new Router({
     {
       path: '/login',
       name: 'Login',
-      component: () => import('../components/Login')
+      component: () => import('../view/auth/Login')
     },
     {
       path: '/',
       name: 'Home',
-      component: () => import('../components/Home')
+      component: () => import('../view/Home')
     },
     {
       path: '/rota1',
       name: 'Rota1',
-      component: () => import('../components/Rota1')
+      component: () => import('../view/Rota1')
     },
     {
       path: '/rota2',
       name: 'Rota2',
-      component: () => import('../components/Rota2')
+      component: () => import('../view/counter/Rota2')
     },
 
   ]

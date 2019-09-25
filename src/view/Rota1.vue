@@ -8,7 +8,12 @@
 export default {
   data: () => ({
     msg: 'rota1'
-  })
+  }),
+  computed: {
+    count () {
+      return this.$store.state.count
+    }
+  }  
 }
 </script>
 
