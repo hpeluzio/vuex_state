@@ -1,14 +1,34 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import modules from './modules'
+// import modules from './modules'
 // import counter from '@/view/counter'
 
 Vue.use(Vuex)
 
-console.log('STORE INDEx')
+// import VuexPersist from 'vuex-persist'
+
+// const vuexPersist = new VuexPersist({
+//     key: 'my-app',
+//     storage: window.localStorage,
+//     modules: ['counter']
+// })
+import createPersistedState from 'vuex-persistedstate'
+import counter from '@/view/counter/store/index'
 
 
-export default new Vuex.Store({ modules })
+export default new Vuex.Store(
+    { 
+        modules: {
+            counter
+        }, 
+        plugins: [createPersistedState({
+            key: 'counter',
+            paths: ['counter']
+        }), createPersistedState({
+            key: 'auth',
+            paths: ['auth']
+        })]
+    })
 
 // const store =  new Vuex.Store({ 
 //     modules: {

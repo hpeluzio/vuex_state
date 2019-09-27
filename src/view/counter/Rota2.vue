@@ -1,8 +1,11 @@
 <template>
   <div class="hello">
     <h1>Counter: {{ count }}</h1>
+    <h1>Counter: {{ valor }}</h1>
     <button @click="decrement">Decrement</button>
     <button @click="increment">Increment</button>
+    <button @click="testeTeste">testeTeste</button>
+    <button @click="testeTesteAction">testeTesteAct</button>
   </div>
 </template>
 
@@ -18,34 +21,27 @@ export default {
     console.log(' typeofcounter:::::::', typeof(this.counter))
   },  
   computed: {
-    ... mapState({
-      // counter: state => state.counter
-      // ...mapState('counter', ['count', '']),
-
-      ...mapState('counter', {
-        count: state => state.count,
-
-      })
-    
+    valor() {
+      // return this.$store.counter.getters.total
+      return this.$store.getters['counter/total']
+    },
+    ...mapState('counter', {
+      count: state => state.count,
     })
+    
+   
   },
-
-
-  // computed: {
-  //   //msg: 'rota2',
-
-  //   // ... mapState({
-  //   //   counter: state => state.counter
-  //   // }),    
-  //   // ... mapState([
-  //   //   'counter'
-  //   // ]),       
-
  
-  // },
-
   methods: {
-    // ... mapMutations([
+    testeTeste() {
+      this.$store.commit('counter/testeTeste', 2)
+    },
+
+    testeTesteAction() {
+      this.$store.dispatch('counter/testeTesteAct', 2)
+    },
+
+// ... mapMutations([
     //   'decrement', 'increment'
     // ]),
     // ... mapActions([
@@ -56,8 +52,9 @@ export default {
         'decrement', // -> this.foo()
         'increment', // -> this.foo()
         
-      ])
-  
+    ])
+
+    
   }
 }
 </script>
