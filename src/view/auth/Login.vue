@@ -35,6 +35,7 @@
 
 <script>
 import axios from "axios";
+import ls from 'local-storage'
 import { mapState, mapActions  } from 'vuex'
 
 export default {
@@ -44,10 +45,32 @@ export default {
     password: ""
   }),
 
+  beforeCreate(){
+    console.log('beforeCreate')
+    this.$store.commit('initialiseStore');
+
+    //Observa as alterações persistidas na tecla em outras guias. 
+    //Dispara fn quando ocorre uma alteração, passando os seguintes argumentos.
+    //ls.on(key, fn)
+    var _this = this
+    ls.on('statezera', function(val) {
+      _this.callback()
+    })    
+  },
+
   created() {
     // console.log('Logado', this.logado)
     // console.log('Logado', this.token)
     // console.log('STATE', this.$store.state.auth)
+  },
+
+  watch: {
+    authState: {
+      handler: function(newValue, oldValue) {
+        ls.set('statezera', this.$store.state)
+      },
+      deep: true
+    },  
   },
 
   computed: {
@@ -61,6 +84,12 @@ export default {
   },
 
   methods: {
+    callback () {
+      //console.log('OLA callback INSIDE')
+      this.$store.replaceState(ls.get('statezera'))
+      //this.$store.state = ls.get('statezera');
+    },   
+    
     ... mapActions('auth' ,{
       setLogadoAct: 'setLogadoAct',
       setTokenAct: 'setTokenAct',
