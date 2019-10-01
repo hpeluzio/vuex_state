@@ -2,9 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import Router from './router'
 import store from './store'
-console.log('store:::::::', typeof(store))
+
+import ls from 'local-storage'
+
+
+Vue.prototype.$ls = ls
 
 Vue.config.productionTip = false
+
+
+
 
 // new Vue({
 //   render: h => h(App),

@@ -15,20 +15,21 @@ Vue.use(Vuex)
 import createPersistedState from 'vuex-persistedstate'
 import counter from '@/view/counter/store/index'
 
+//import pluginteste from './pluginteste';
 
 export default new Vuex.Store(
-    { 
-        modules: {
-            counter
-        }, 
-        plugins: [createPersistedState({
-            key: 'counter',
-            paths: ['counter']
-        }), createPersistedState({
-            key: 'auth',
-            paths: ['auth']
-        })]
-    })
+{ 
+    modules: {
+        counter
+    }, 
+    // plugins: [createPersistedState({
+    //     key: 'counter',
+    //     paths: ['counter']
+    // }), createPersistedState({
+    //     key: 'auth',
+    //     paths: ['auth']
+    // })]
+})
 
 // const store =  new Vuex.Store({ 
 //     modules: {

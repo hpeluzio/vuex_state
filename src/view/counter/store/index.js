@@ -2,13 +2,13 @@ export default {
     namespaced: true,
     state: {
         count: 0,
+        count2: 0,
         teste:1337
     },
     getters: {
         count: state => state.count,
         // total: state => state.count,
         total(state) {
-            console.log('getter total entrou aqui')
             return state.teste;
         }
     },    
@@ -19,7 +19,9 @@ export default {
         },
         testeTeste(state, payload) {
             state.teste += payload;
-        }
+        },
+        decrement2: state => state.count2--,
+        increment2: state => state.count2++,
 
         //increment: state => state.counter++
     },
@@ -38,7 +40,9 @@ export default {
                 context.commit('testeTeste', payload)
             }, 250)
             
-        }
+        },
+        decrement2: ({ commit }) => commit('decrement2'),
+        increment2: ({ commit }) => commit('increment2'),
     }
 
 }
