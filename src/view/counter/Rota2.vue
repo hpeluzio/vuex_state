@@ -16,7 +16,8 @@
     </div> -->
 
     <div class="hello">
-      <h1>Counter_state: {{ counter_state }}</h1>
+      <h1>Rota2 State: {{ state }}</h1>
+      <!-- <h1>Counter_state: {{ counter_state }}</h1> -->
       <button @click="decrement2">Decrement</button>
       <button @click="increment2">Increment</button>
     </div>    
@@ -125,8 +126,10 @@ export default {
     counter_state () {
       // return this.$store.state.counter
       return this.$store.state.counter
+    },
+    state() {
+      return this.$store.state
     }
-    
     
    
   },

@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="container">
+      <h1>Auth State: {{ authState }}</h1>
       <form>
         <div class="form-group">
           <label for="email">Email address</label>
@@ -25,7 +26,8 @@
             placeholder="Password"
           />
         </div>
-        <button type="submit" @click="login" class="btn btn-primary">Submit</button>
+        <button type="submit" @click="login" class="btn btn-primary">Logar</button>
+        <button @click="setDeslogarAct" class="btn btn-danger">Deslogar</button>
       </form>
     </div>
   </div>
@@ -33,6 +35,7 @@
 
 <script>
 import axios from "axios";
+import { mapState, mapActions  } from 'vuex'
 
 export default {
   data: () => ({
@@ -41,47 +44,59 @@ export default {
     password: ""
   }),
 
-  created() {},
+  created() {
+    // console.log('Logado', this.logado)
+    // console.log('Logado', this.token)
+    // console.log('STATE', this.$store.state.auth)
+  },
+
+  computed: {
+    ... mapState('auth',{
+      logado: 'logado',
+      token: 'token'
+    }),
+    authState() {
+      return this.$store.state.auth
+    }
+  },
 
   methods: {
+    ... mapActions('auth' ,{
+      setLogadoAct: 'setLogadoAct',
+      setTokenAct: 'setTokenAct',
+      setNomeAct: 'setNomeAct',
+      setEmailAct: 'setEmailAct',
+      setPermissionAct: 'setPermissionAct',
+      setDeslogarAct: 'setDeslogarAct',
+    }),
+
     login() {
       var URL = "http://127.0.0.1";
       var PORT = "3333";
 
-      let axios_instance;
-
-      if (localStorage.getItem("user")) {
-        var userSession = JSON.parse(localStorage.getItem("user"));
-
-        axios_instance = axios.create({
-          baseURL: URL + ":" + PORT,
-          headers: {
-            Authorization: "Bearer " + userSession.token.token
-          }
-        });
-      } else {
-        var userSession = JSON.parse(localStorage.getItem("user"));
-
-        axios_instance = axios.create({
-          baseURL: URL + ":" + PORT
-        });
-      }
-
-      axios_instance({
+      axios({
         method: "post",
-        url: "/login",
+        url: URL + ":" + PORT + "/login",
         data: {
           email: this.email,
           password: this.password
-        }
+        },
+        headers: {
+          Authorization: "Bearer " + this.token
+        }        
       })
         .then(response => {
           if (response.data.token) {
+            this.setLogadoAct(true)
+            this.setTokenAct(response.data.token.token)
+            this.setNomeAct(response.data.user.name)
+            this.setEmailAct(response.data.user.email)
+            this.setPermissionAct(response.data.user.permission)
             // Se entrar aqui autenticou com sucesso
-            console.log('login!')
+
             alert('Logou!')
-            this.$router.push('/')
-            localStorage.setItem("user", JSON.stringify(response.data));
+            //this.$router.push('/')
+            //localStorage.setItem("user", JSON.stringify(response.data));
           }
         })
         .catch(error => {

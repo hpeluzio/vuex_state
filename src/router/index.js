@@ -18,7 +18,7 @@ const router = new Router({
     {
       path: '/rota1',
       name: 'Rota1',
-      component: () => import('../view/Rota1')
+      component: () => import('../view/rota1/Rota1')
     },
     {
       path: '/rota2',

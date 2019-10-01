@@ -1,8 +1,9 @@
-//import { store as auth } from '@/view/auth'
-//import counter from '@/view/counter'
+import auth from '@/view/auth/store/index'
 import counter from '@/view/counter/store/index'
+import rota1 from '@/view/rota1/store/index'
 
 export default {
-  //auth,
-    counter
+    auth,
+    counter,
+    rota1,
 }

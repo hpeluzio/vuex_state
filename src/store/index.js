@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import modules from './modules'
-// import counter from '@/view/counter'
+import modules from './modules'
 
 Vue.use(Vuex)
 
@@ -12,16 +11,30 @@ Vue.use(Vuex)
 //     storage: window.localStorage,
 //     modules: ['counter']
 // })
-import createPersistedState from 'vuex-persistedstate'
-import counter from '@/view/counter/store/index'
-
-//import pluginteste from './pluginteste';
+// import createPersistedState from 'vuex-persistedstate'
+// import counter from '@/view/counter/store/index'
+// import rota1 from '@/view/rota1/store/index'
+import plugin from './plugin';
 
 export default new Vuex.Store(
 { 
-    modules: {
-        counter
-    }, 
+    // modules: {
+    //     counter,
+    //     rota1
+    // }, 
+    modules,
+    plugins: [plugin],
+	mutations: {
+		initialiseStore(state) {
+			// Check if the ID exists
+			if(localStorage.getItem('statezera')) {
+				// Replace the state object with the stored item
+				this.replaceState(
+					Object.assign(state, JSON.parse(localStorage.getItem('statezera')))
+				);
+			}
+		}
+	},    
     // plugins: [createPersistedState({
     //     key: 'counter',
     //     paths: ['counter']
