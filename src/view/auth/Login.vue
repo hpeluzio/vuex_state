@@ -26,9 +26,10 @@
             placeholder="Password"
           />
         </div>
-        <button type="submit" @click="login" class="btn btn-primary">Logar</button>
-        <button @click="setDeslogarAct" class="btn btn-danger">Deslogar</button>
+
       </form>
+      <button type="submit" @click="login" class="btn btn-primary">Logar</button>
+      <button @click="setDeslogarAct" class="btn btn-danger">Deslogar</button>
     </div>
   </div>
 </template>
@@ -65,12 +66,16 @@ export default {
   },
 
   watch: {
-    authState: {
-      handler: function(newValue, oldValue) {
-        ls.set('statezera', this.$store.state)
-      },
-      deep: true
-    },  
+    // authState: {
+    //   handler: function(newValue, oldValue) {
+    //     //console.log('oldValue: ', oldValue, typeof(oldValue), '  -  newValue: ', newValue, typeof(newValue))
+    //     if(oldValue != newValue)
+    //       console.log('DIFERENTE')
+          
+    //     ls.set('statezera', this.$store.state)
+    //   },
+    //   deep: true
+    // },  
   },
 
   computed: {
@@ -91,11 +96,7 @@ export default {
     },   
     
     ... mapActions('auth' ,{
-      setLogadoAct: 'setLogadoAct',
-      setTokenAct: 'setTokenAct',
-      setNomeAct: 'setNomeAct',
-      setEmailAct: 'setEmailAct',
-      setPermissionAct: 'setPermissionAct',
+      setLogarAct: 'setLogarAct',
       setDeslogarAct: 'setDeslogarAct',
     }),
 
@@ -116,14 +117,22 @@ export default {
       })
         .then(response => {
           if (response.data.token) {
-            this.setLogadoAct(true)
-            this.setTokenAct(response.data.token.token)
-            this.setNomeAct(response.data.user.name)
-            this.setEmailAct(response.data.user.email)
-            this.setPermissionAct(response.data.user.permission)
+            this.setLogarAct({ 
+              logado: true, 
+              token: response.data.token.token,
+              user: response.data.token.user,
+              email: response.data.token.email,
+              permission: response.data.token.permission,
+            })
+
+            // this.setLogadoAct(true)
+            // this.setTokenAct(response.data.token.token)
+            // this.setNomeAct(response.data.user.name)
+            // this.setEmailAct(response.data.user.email)
+            // this.setPermissionAct(response.data.user.permission)
             // Se entrar aqui autenticou com sucesso
 
-            alert('Logou!')
+            //alert('Logou!')
             //this.$router.push('/')
             //localStorage.setItem("user", JSON.stringify(response.data));
           }
