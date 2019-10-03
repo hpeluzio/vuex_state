@@ -28,15 +28,26 @@ export default {
   data: () => ({
       msg: 'home',
       name: '',
-      name2: ''
+      // name2: ''
   }),
 
+  beforeCreate() {
+    // console.log('beforeCreate ', this)
+  },
+
+  created() {
+    // console.log('create ', this)
+  },
+
   mounted() {
+    // console.log('mounted ', this)
+
     if (localStorage.getItem('name')) {
       this.name = localStorage.getItem('name')
     }
-    window.addEventListener("storage", this.onStorageUpdate);
+    window.addEventListener("storage", this.onStorageUpdate)
   },
+
   // beforeDestroy() {
   //   window.removeEventListener("storage", this.onStorageUpdate);
   // },
@@ -50,15 +61,16 @@ export default {
   methods: {
     onStorageUpdate(event) {
       console.log('onStorageUpdate', event)
-      this.$store.state.rota1.rota1 = 999
-      // if (event.key === "name2") {
-      //   console.log('STORAGE ESCUTOU')
-      //   this.name = event.newValue;
-      // }
+      //this.$store.state.rota1.rota1 = 999
+      if (event.key === "name") {
+        console.log('STORAGE ESCUTOU')
+        this.name = event.newValue;
+      }
+      //this.name = localStorage.getItem('name')
     },
     nomesubmit() {
       console.log('name: ', this.name) 
-      localStorage.setItem('name2', this.name)
+      localStorage.setItem('name', this.name)
     },
 
     ... mapActions('auth', ['setDeslogarAct']),

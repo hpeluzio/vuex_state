@@ -13,31 +13,39 @@ import ls from 'local-storage'
 import { mapState, mapGetters, mapMutations, mapActions  } from 'vuex'
 
 export default {
-  
 	beforeCreate() {
+    //console.log('beforeCreate')
+
     //Atualizando o estado de acordo com localstorage
-    this.$store.commit('initialiseStore');
+    //this.$store.commit('initialiseStore');
 
     //Observa as alterações persistidas na tecla em outras guias. 
     //Dispara fn quando ocorre uma alteração, passando os seguintes argumentos.
     //ls.on(key, fn)
-    var _this = this
-    ls.on('statezera', function(val) {
-      _this.callback()
-    })
+    // var _this = this
+    // ls.on('statezera', function(val) {
+    //   _this.callback()
+    // })
 
 	},  
   created() {
 
   },
+  mounted() {
+    //console.log('mounted')
+    // var _this = this
+    // ls.on('statezera', function(val) {
+    //   _this.callback()
+    // })
+  },  
   watch: {
 
-    counter_state: {
-      handler: function(newValue, oldValue) {
-        ls.set('statezera', this.$store.state)
-      },
-      deep: true
-    },    
+    // counter_state: {
+    //   handler: function(newValue, oldValue) {
+    //     ls.set('statezera', this.$store.state)
+    //   },
+    //   deep: true
+    // },    
   }, 
    
   computed: {
@@ -51,11 +59,11 @@ export default {
  },
  
  methods: {
-    callback () {
-      //console.log('OLA callback INSIDE')
-      this.$store.replaceState(ls.get('statezera'))
-      //this.$store.state = ls.get('statezera');
-    },   
+    // callback () {
+    //   //console.log('OLA callback INSIDE')
+    //   this.$store.replaceState(ls.get('statezera'))
+    //   //this.$store.state = ls.get('statezera');
+    // },   
  
     ...mapActions('rota1', [
         'decrement', // -> this.foo()

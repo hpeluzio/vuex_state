@@ -34,7 +34,12 @@ export default new Vuex.Store(
 				);
 			}
 		}
-	},    
+    },
+    // actions: {
+    //     initialiseStoreAct(context) {
+    //         context.commit('initialiseStore')
+    //     }
+    // }    
     // plugins: [createPersistedState({
     //     key: 'counter',
     //     paths: ['counter']

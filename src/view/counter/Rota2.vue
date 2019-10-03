@@ -37,9 +37,6 @@ export default {
     }
   },
 
-  mounted () {
-
-  },  
   created() {
     //Pegando o localstorage e setando no estado
     this.$ls.set('counter_state', this.$store.state.counter)
@@ -72,6 +69,11 @@ export default {
 
     // });
   },
+
+  mounted () {
+
+  }, 
+    
   watch: {
     // count2: function(val) {
     //   console.log('count2 val: ', val)

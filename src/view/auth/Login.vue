@@ -47,8 +47,8 @@ export default {
   }),
 
   beforeCreate(){
-    console.log('beforeCreate')
-    this.$store.commit('initialiseStore');
+    //console.log('beforeCreate')
+    //this.$store.commit('initialiseStore');
 
     //Observa as alterações persistidas na tecla em outras guias. 
     //Dispara fn quando ocorre uma alteração, passando os seguintes argumentos.
