@@ -1,12 +1,22 @@
 import ls from 'local-storage'
 
 const pluginLocalStorage = store => {
-    console.log('chamado quando o store é inicializado')
+    //console.log('chamado quando o store é inicializado')
 
 
     //Inizializar a store do component com o local storage
     store.commit('initialiseStore');
+    store.commit('eventListener');
     // store.dispatch('initialiseStoreAct');
+
+    // window.addEventListener("storage", function() {
+    //   console.log('addEventListener ADICIONADO NAS OUTRAS ABAS/JANELAS') 
+    //   //this.$store.state
+    //   Object.assign(store.state, JSON.parse(localStorage.getItem('statezera')))
+    //   // store.state.replaceState(
+    //   // 	Object.assign(state, JSON.parse(localStorage.getItem('statezera')))
+    //   // )
+    // })
 
 
     // if(localStorage.getItem('statezera')) {
@@ -18,15 +28,9 @@ const pluginLocalStorage = store => {
 
     store.subscribe((mutation, state) => {
       ls.set('statezera', state)
-      console.log('TODA MUTACAO ENTRA PLUGIN? CLARO')
-      window.addEventListener("storage", function() {
-        console.log('TESTE addEventListener') 
-        //this.$store.state
-        Object.assign(this.$store.state, JSON.parse(localStorage.getItem('statezera')))
-        // store.state.replaceState(
-				// 	Object.assign(state, JSON.parse(localStorage.getItem('statezera')))
-				// )
-      })
+      //console.log(mutation.type)
+      //console.log('TODA MUTACAO ENTRA PLUGIN? CLARO')
+
       //console.log('state', state)
       // chamada após cada mutação.
       // A mutação vem no formato de `{ type, payload }`.

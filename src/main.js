@@ -3,10 +3,10 @@ import App from './App.vue'
 import Router from './router'
 import store from './store'
 
-import ls from 'local-storage'
+// import ls from 'local-storage'
+// import './http/axios'
 
-
-Vue.prototype.$ls = ls
+// Vue.prototype.$ls = ls
 
 Vue.config.productionTip = false
 

@@ -49,6 +49,14 @@
                 </a>
               </router-link>
             </li>
+            <li class="nav-item active">
+              <router-link to="/produtos">
+                <a class="nav-link" href="#">
+                  Produtos
+                  <span class="sr-only">(current)</span>
+                </a>
+              </router-link>
+            </li>            
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
             </li>
