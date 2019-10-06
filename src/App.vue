@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+
+    <Loader></Loader>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -100,8 +103,18 @@
 </template>
 
 <script>
+import Loader from './Loader'
+
 export default {
-  name: "app"
+  name: "app",
+  components: {
+    Loader
+  },
+  computed: {
+    SET_LOADER() {
+      return this.$store.state.loader
+    }
+  }
 };
 </script>
 
@@ -116,3 +129,4 @@ export default {
   margin-top: 60px;
 } */
 </style>
+

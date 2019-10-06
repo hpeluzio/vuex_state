@@ -12,27 +12,18 @@ export default {
     }, 
 
     mutations: {
-        ADD_PRODUTO(state, payload) {
-            state.produtos.push(payload)
-        },
-        
-        DELETE_PRODUTO(state, payload){
-            state.produtos = state.produtos.filter( produto => {
-                if(produto.id !== payload)
-                    return produto
-            })
-        },
-
         API_CALL(state, payload) {
 
             var produtos = []
-            Object.keys(payload).map( key => {
-                produtos.push({ 
-                    'id': key, 
-                    'name': payload[key].name, 
-                    'quantidade': payload[key].valor, 
-                    'valor': payload[key].valor })
-            })
+            if(payload)
+                Object.keys(payload).map( key => {
+                    produtos.push({ 
+                        'id': key, 
+                        'name': payload[key].name, 
+                        'quantidade': payload[key].valor, 
+                        'valor': payload[key].valor })
+                })
+                
             state.produtos = produtos
         }         
     },
@@ -43,7 +34,8 @@ export default {
             http.post('https://produto-b14ca.firebaseio.com/produtos.json', payload)
               .then(res => {
                 
-                context.commit('ADD_PRODUTO', Object.assign({ id: res.data.name}, payload))
+                // context.commit('ADD_PRODUTO', Object.assign({ id: res.data.name}, payload))
+                context.dispatch('API_CALL_ACT')
 
                 console.log('PRODUTO INSERIDO COM SUCESSO')
                 alert('PRODUTO INSERIDO COM SUCESSO')
@@ -51,13 +43,13 @@ export default {
               .catch(error => {
                 console.log('ERROR:', error)
                 alert('ERROR:', error)
-              })            
+              })
         },
 
         DELETE_PRODUTO_ACT(context, payload){
             http.delete(`https://produto-b14ca.firebaseio.com/produtos/${payload}.json`)
               .then(res => {
-                context.commit('DELETE_PRODUTO', payload)
+                context.dispatch('API_CALL_ACT')
               })
               .catch(error => {
                 console.log('ERROR:', error)
@@ -65,19 +57,12 @@ export default {
               })             
         }, 
 
-        API_CALL_ACT(context, payload) {
+        API_CALL_ACT(context) {
  
             http.get('https://produto-b14ca.firebaseio.com/produtos.json')
               .then(res => {
-                //console.log('API_CALL res: ', res.data)
+                //Pegando todos os produtos da API e setando no estado
                 context.commit('API_CALL', res.data)
-                // this.ADD_PRODUTO_ACT({
-                //   name: this.name,
-                //   quantidade: this.quantidade,
-                //   valor: this.valor
-                // })
-                //console.log('PRODUTO INSERIDO COM SUCESSO')
-                //alert('PRODUTO INSERIDO COM SUCESSO')
               })
               .catch(error => {
                 console.log('ERROR:', error)

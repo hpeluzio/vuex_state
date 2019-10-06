@@ -8,8 +8,11 @@ Vue.use(Vuex)
 import ls_plugin from './plugins/local-storage';
 //import axios_plugin from './plugins/axios';
 
-export default new Vuex.Store(
-{ 
+export default new Vuex.Store({   
+    
+    state:{
+        loader: false
+    },
     // modules: {
     //     counter,
     //     rota1
@@ -42,7 +45,10 @@ export default new Vuex.Store(
                 // 	Object.assign(state, JSON.parse(localStorage.getItem('statezera')))
                 // )
               })
-        },        
+        },  
+        SET_LOADER(state,payload) {
+            state.loader = payload
+        }      
      
     },
 

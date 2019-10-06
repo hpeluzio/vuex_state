@@ -47,7 +47,7 @@ import http from '@/http/axios'
 export default {
   data() {
     return {
-      teste: '123123',
+      showLoad: false,
       id: null,
       produto: {
         name: '',
@@ -68,7 +68,11 @@ export default {
   computed: {
     ... mapGetters('produtos', {
       produtos: 'produtos'
-    })
+    }),
+
+    // ...mapGetters({
+    //   SET_LOADER: 'SET_LOADER'
+    // })
   },
 
   methods: {
@@ -99,13 +103,36 @@ export default {
     },
 
     add_produto() {
-      try{
-        // console.log('this.produto ::: :', this.produto, this.teste)
-        this.ADD_PRODUTO_ACT(this.produto).then( _ => { this.limpar })
-        //this.limpar()
-      } catch(error) {
-        console.log('ERROR:', error)
+      this.showLoad = true
+      console.log('EU HEIIN')
+      // setTimeout(() => {
+      //   console.log('EU HEIIN')
+      //   this.showLoad = false
+      // }, 2000);
+      // setTimeout(() => {
+        
+      // }, 2000);
+
+      try {
+        this.ADD_PRODUTO_ACT(this.produto)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.showLoad = false
+        this.limpar()
       }
+      // new Promise( (resolve, reject) => {
+      //   //Resolve isso aqui priimeiro, depois limpe o form
+      //   resolve(this.ADD_PRODUTO_ACT(this.produto))
+      // })
+      // .then( res => { 
+      //   this.limpar()
+      // })
+      // .catch( error => { console.log('Error: ', error) })
+      // .finally( _ => {
+      //   this.limpar()
+      //   this.showLoad = false
+      // })
     },
 
   }
