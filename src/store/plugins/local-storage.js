@@ -1,11 +1,13 @@
 import ls from 'local-storage'
 
 const pluginLocalStorage = store => {
-    //console.log('chamado quando o store é inicializado')
+    console.log('chamado quando o store é inicializado')
 
 
     //Inizializar a store do component com o local storage
-    store.commit('initialiseStore');
+    
+    store.dispatch('produtos/API_CALL_ACT')
+    // store.commit('initialiseStore');
     store.commit('eventListener');
     // store.dispatch('initialiseStoreAct');
 
@@ -27,6 +29,7 @@ const pluginLocalStorage = store => {
     // }
 
     store.subscribe((mutation, state) => {
+      console.log('mutation.type: ', mutation.type)
       ls.set('statezera', state)
       //console.log(mutation.type)
       //console.log('TODA MUTACAO ENTRA PLUGIN? CLARO')

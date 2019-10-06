@@ -15,8 +15,8 @@ var URL = process.env.VUE_APP_API_URL
         http.interceptors.request.use(config => {
             //Aqui vamos verificar se o cara está logado, caso estiver 
             //vamos simplesmente adicionar header authorization
-            console.log('http / axioos: logado? :', store.getters['auth/logado'])
-            console.log('http / axioos: token? :', store.getters['auth/token'])
+            //console.log('http / axioos: logado? :', store.getters['auth/logado'])
+            //console.log('http / axioos: token? :', store.getters['auth/token'])
 
             const token = store.getters['auth/token'];
 

@@ -3,43 +3,40 @@
 
     <form>
       <div class="form-group">
-        <label for="name">Nome do produto</label>
+
         <input
-          type="name"
-          name="name"
-          v-model="name"
+          v-model="produto.name"
           class="form-control"
-          id="name"
           placeholder="Enter Nome"
         />
-        <label for="name">Quantidade</label>
+
         <input
-          type="quantidade"
-          name="quantidade"
-          v-model="quantidade"
+          v-model="produto.quantidade"
           class="form-control"
-          id="quantidade"
           placeholder="Quantidade"
         />
-        <label for="name">Valor</label>
+
         <input
-          type="valor"
-          name="valor"
-          v-model="valor"
+          v-model="produto.valor"
           class="form-control"
-          id="valor"
           placeholder="Valor"
         />                      
       </div>
     </form>       
-    <button @click="nomesubmit" class="btn btn-primary">Submit</button> 
-      <!-- <button @click="deslogar" class="btn btn-danger">Deslogar</button> -->
+    
+    <button @click="add_produto" class="btn btn-primary">Add Produto</button> 
+    <button @click="apicall" class="btn btn-success ml-2">API CALL</button> 
+    <button @click="limpar" class="btn btn-danger ml-2">Limpar</button> 
+
     <ul id="produtos">
-      <li v-for="produto in produtos">
-         {{ produto.name }} - {{ produto.quantidade }} - {{ produto.valor }}
+      <li v-for="(produto, id) in produtos" :key="id">
+         <br> <b>{{ produto.id }}</b> <br>
+         {{ produto.name }} - {{ produto.quantidade }} - {{ produto.valor }} <br> 
+         <button @click="carregar_produto(produto.id)" class="btn btn-primary ml-2">Carregar</button> 
+         <button @click="delete_produto(produto.id)" class="btn btn-danger ml-2">Excluir</button> 
+
       </li>
     </ul>
-
   </div>
 </template>
 
@@ -48,23 +45,21 @@ import { mapGetters, mapActions } from 'vuex'
 import http from '@/http/axios'
 
 export default {
-  data: () => ({
-      name: '',
-      quantidade: '',
-      valor: '',
-
-  }),
+  data() {
+    return {
+      teste: '123123',
+      id: null,
+      produto: {
+        name: '',
+        quantidade: '',
+        valor: ''
+      }
+    }
+  },
 
   beforeCreate() {},
 
-  created() {
-    // console.log('created http', http)
-      // this.$http.post('produtos.json', {
-      //   name: 'CREATED',
-      //   quantidade: '1',
-      //   valor: '2',
-      // })      
-  },
+  created() {},
 
   mounted() {},
 
@@ -77,50 +72,42 @@ export default {
   },
 
   methods: {
+    ... mapActions('produtos', ['ADD_PRODUTO_ACT', 'DELETE_PRODUTO_ACT','API_CALL_ACT']),
 
-    nomesubmit() {
-      //  console.log('name produto: ', this.name) 
-      //  console.log('name produto: ', this.quantidade) 
-      //  console.log('name produto: ', this.valor) 
+    limpar() {
+      this.id = null
+      this.produto.name = ''
+      this.produto.quantidade = ''
+      this.produto.valor = ''
+    }, 
 
-      // this.$http.post('produtos.json', {
-      //   name: this.name,
-      //   quantidade: this.quantidade,
-      //   valor: this.valor,
-      // })
-      // .then(res => {
-      try{
-        this.ADD_PRODUTO_ACT({
-          name: this.name,
-          quantidade: this.quantidade,
-          valor: this.valor
-        })
-        //alert('PRODUTO INSERIDO COM SUCESSO')
-      } catch(error) {
-        console.log('ERROR:', error)
-        //alert('ERROR: PRODUTO NÃO INSERIDO')
-      }
-      //   alert('PRODUTO INSERIDO COM SUCESSO')
-      // })
-      // .catch(error => {
-      //   alert('ERROR: PRODUTO NÃO INSERIDO')
-      // })  
+    carregar_produto(id) {
+      // console.log('id: ', id)
+      this.produto = this.produtos.find( produto => { 
+        if(produto.id == id)
+          return produto 
+      })
+    }, 
 
-      // this.$http.post('produtos.json', {
-      //   name: this.name,
-      //   quantidade: this.quantidade,
-      //   valor: this.valor,
-      // })      
-      //localStorage.setItem('name', this.name)
+    delete_produto(id) {
+      // console.log('id: ', id)
+      this.DELETE_PRODUTO_ACT(id).then( _ => { this.limpar })
+    },  
+
+    apicall() {
+      this.API_CALL_ACT()
     },
 
-    ... mapActions('produtos', ['ADD_PRODUTO_ACT']),
+    add_produto() {
+      try{
+        // console.log('this.produto ::: :', this.produto, this.teste)
+        this.ADD_PRODUTO_ACT(this.produto).then( _ => { this.limpar })
+        //this.limpar()
+      } catch(error) {
+        console.log('ERROR:', error)
+      }
+    },
 
-    // deslogar() {
-      
-    //   this.setDeslogarAct
-    //   this.$router.push('/login')
-    // }
   }
 }
 </script>

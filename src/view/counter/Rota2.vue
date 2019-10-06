@@ -39,10 +39,10 @@ export default {
 
   created() {
     //Pegando o localstorage e setando no estado
-    this.$ls.set('counter_state', this.$store.state.counter)
-    //console.log(JSON.parse(this.$ls.get('counter_state')))
-    console.log(typeof(this.$ls.get('counter_state')))
-    console.log(this.$ls.get('counter_state'))
+    // this.$ls.set('counter_state', this.$store.state.counter)
+    // //console.log(JSON.parse(this.$ls.get('counter_state')))
+    // console.log(typeof(this.$ls.get('counter_state')))
+    // console.log(this.$ls.get('counter_state'))
     //this.$store.state.counter = Object.assign(this.$store.state.counter, this.$ls.get('counter_state'));
     
 
@@ -54,13 +54,13 @@ export default {
     // this.$store.state.counter = this.$ls.get('counter_state');
     // //console.log(this.$store.state.counter)
     // console.log('this.counter_state', this.counter_state)
-    var _this = this
-    this.$ls.on('counter_state', function(val) {
-      //this.$store.state.counter.count2 = val;
-      _this.callback()
-      //console.log('Olá CALLBACK')
+    // var _this = this
+    // this.$ls.on('counter_state', function(val) {
+    //   //this.$store.state.counter.count2 = val;
+    //   _this.callback()
+    //   //console.log('Olá CALLBACK')
 
-    })   
+    // })   
     // var _this = this
     // this.$ls.on('count2', function(val) {
     //   //this.$store.state.counter.count2 = val;
