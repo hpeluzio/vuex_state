@@ -23,7 +23,7 @@ export default {
                         'quantidade': payload[key].valor, 
                         'valor': payload[key].valor })
                 })
-                
+
             state.produtos = produtos
         }         
     },
@@ -33,12 +33,30 @@ export default {
  
             http.post('https://produto-b14ca.firebaseio.com/produtos.json', payload)
               .then(res => {
-                
                 // context.commit('ADD_PRODUTO', Object.assign({ id: res.data.name}, payload))
+
+                //Obtendo lista de produtos novamente
                 context.dispatch('API_CALL_ACT')
 
                 console.log('PRODUTO INSERIDO COM SUCESSO')
-                alert('PRODUTO INSERIDO COM SUCESSO')
+                //alert('PRODUTO INSERIDO COM SUCESSO')
+              })
+              .catch(error => {
+                console.log('ERROR:', error)
+                alert('ERROR:', error)
+              })
+        },
+
+        UPDATE_PRODUTO_ACT(context, payload) {
+ 
+            http.patch(`https://produto-b14ca.firebaseio.com/produtos/${payload.id}.json`, payload)
+              .then(res => {
+                
+                //Obtendo lista de produtos novamente
+                context.dispatch('API_CALL_ACT')
+
+                console.log('PRODUTO ATUALIZADO COM SUCESSO')
+                //alert('PRODUTO INSERIDO COM SUCESSO')
               })
               .catch(error => {
                 console.log('ERROR:', error)

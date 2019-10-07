@@ -29,7 +29,7 @@ const pluginLocalStorage = store => {
     // }
 
     store.subscribe((mutation, state) => {
-      console.log('mutation.type: ', mutation.type)
+      //console.log('mutation.type: ', mutation.type)
       ls.set('statezera', state)
       //console.log(mutation.type)
       //console.log('TODA MUTACAO ENTRA PLUGIN? CLARO')
